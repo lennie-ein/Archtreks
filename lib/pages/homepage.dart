@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:archtreks_website/Utils/string_const.dart' as constants;
 import 'package:google_fonts/google_fonts.dart';
 
+import 'destinations_card.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -296,7 +298,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(height:20)
+            const SizedBox(height:20),
+
           ],
         ),
       ),

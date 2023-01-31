@@ -1,96 +1,36 @@
+import 'package:archtreks_website/pages/destinationpage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget destinationCards(BuildContext context){
+import '../Model/ProgramModel.dart';
+
+Widget destinationCard(
+    AsyncSnapshot<ProgramModel> snapshot, BuildContext cardContext) {
+  var program = snapshot.data;
 
   return Container(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    height: MediaQuery.of(cardContext).size.height * 3 / 5,
+    width: MediaQuery.of(cardContext).size.width * 2 / 8,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20.0),
+      image: const DecorationImage(
+          image:
+              AssetImage("assets/Mt. Kenya Mackinders Camp (650 of 745).jpg"),
+          fit: BoxFit.cover),
+    ),
+    child: Stack(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height * 1 / 5,
-          width: MediaQuery.of(context).size.width * 2 / 8,
           decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(
-                  color: Colors.black,
-                  blurRadius: 20.0,
-                  blurStyle: BlurStyle.outer)
-            ],
-            image: const DecorationImage(
-              image: AssetImage(
-                  "assets/MT. kENYA LAKES EDITION-848.jpg"),
-              fit: BoxFit.cover,
-            ),
             borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Center(
-            child: Text(
-              "Lakes Edition",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.londrinaOutline(
-                  fontSize: 40,
-                  textStyle:
-                  const TextStyle(color: Colors.white)),
-            ),
+            gradient: const LinearGradient(
+                colors: [Colors.transparent, Colors.black],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(45.0),
-          child: Container(
-            height:
-            MediaQuery.of(context).size.height * 1 / 5,
-            width: MediaQuery.of(context).size.width * 2 / 8,
-            decoration: BoxDecoration(
-              boxShadow: const [
-                BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 20.0,
-                    blurStyle: BlurStyle.outer)
-              ],
-              image: const DecorationImage(
-                  image: AssetImage(
-                      "assets/Mt. Kenya Mackinders Camp (650 of 745).jpg"),
-                  fit: BoxFit.cover),
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            child: Center(
-              child: Text(
-                "Hikes",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.londrinaSolid(
-                    fontSize: 40,
-                    textStyle: const TextStyle(
-                        color: Colors.black54)),
-              ),
-            ),
-          ),
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height * 1 / 5,
-          width: MediaQuery.of(context).size.width * 2 / 8,
-          decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(
-                  color: Colors.black,
-                  blurRadius: 20.0,
-                  blurStyle: BlurStyle.outer)
-            ],
-            image: const DecorationImage(
-                image: AssetImage(
-                    "assets/MT. kENYA LAKES EDITION-850.jpg"),
-                fit: BoxFit.cover),
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Center(
-            child: Text(
-              "Safaris",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.londrinaOutline(
-                  fontSize: 40,
-                  textStyle: TextStyle(color: Colors.white)),
-            ),
-          ),
+        Center(
+          child: Text(" ${program?.name.toString()} "),
         )
       ],
     ),
