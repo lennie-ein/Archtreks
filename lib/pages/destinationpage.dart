@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Model/ProgramModel.dart';
@@ -12,8 +13,9 @@ class DestinationPage extends StatefulWidget {
   State<DestinationPage> createState() => _DestinationPageState();
 }
 
-class _DestinationPageState extends State<DestinationPage> with TickerProviderStateMixin {
-  late Future<ProgramModel> programs;
+class _DestinationPageState extends State<DestinationPage>
+    with TickerProviderStateMixin {
+  late Future<List<ProgramModel>> programs;
 
   late AnimationController animationController;
 
@@ -25,14 +27,13 @@ class _DestinationPageState extends State<DestinationPage> with TickerProviderSt
 
   @override
   void initState() {
-
     super.initState();
 
     animationController =
         AnimationController(duration: const Duration(seconds: 5), vsync: this);
     animationController.repeat();
     programs = allPrograms();
-    Network().getPrograms();
+    // Network().getPrograms();
   }
 
   @override
@@ -46,7 +47,10 @@ class _DestinationPageState extends State<DestinationPage> with TickerProviderSt
               Image.asset("assets/Mt. Kenya Mackinders Camp (695 of 745).jpg"),
               Padding(
                 padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 1 / 2),
+                    left: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 1 / 2),
                 child: Text(
                   "Destinations",
                   style: GoogleFonts.londrinaOutline(
@@ -54,31 +58,41 @@ class _DestinationPageState extends State<DestinationPage> with TickerProviderSt
                 ),
               ),
             ]),
-            FutureBuilder(
+            FutureBuilder<List<ProgramModel>>(
                 future: programs,
-                builder: (BuildContext context,
-                    AsyncSnapshot<ProgramModel> snapshot) {
-                  if(snapshot.hasData){
-                  return destinationCard(snapshot, context);
-                  }else{
-                    return Center(
-                        child: CircularProgressIndicator(
-                      valueColor: animationController.drive(ColorTween(
-                          begin: Colors.blueAccent, end: Colors.red)),
-                    ));
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(snapshot.error.toString());
+
+                    //  Center(
+                    //     child: CircularProgressIndicator(
+                    //   valueColor: animationController.drive(ColorTween(
+                    //       begin: Colors.blueAccent, end: Colors.red)),
+                    // ));
+                  } else {
+                    return ListView.builder(
+                      itemBuilder: (BuildContext context, int index) {
+                        return destinationCard(snapshot.data![index], context);
+                      });
+                    // return Center(
+                    //     child: CircularProgressIndicator(
+                    //   valueColor: animationController.drive(ColorTween(
+                    //       begin: Colors.blueAccent, end: Colors.red)),
+                    // ));
                   }
                 }),
+
+
             const SizedBox(
               height: 10,
             )
           ],
-        ),
-      ),
+        )
+        ,
+      )
+      ,
     );
   }
 
-  Future<ProgramModel> allPrograms() =>
-      Network().getPrograms();
+  Future<List<ProgramModel>> allPrograms() => Network().getPrograms();
 }
-
-

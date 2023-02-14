@@ -4,18 +4,24 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../Model/ProgramModel.dart';
 
-Widget destinationCard(
-    AsyncSnapshot<ProgramModel> snapshot, BuildContext cardContext) {
-  var program = snapshot.data;
+Widget destinationCard(ProgramModel program,
+    BuildContext cardContext) {
+  // var program = snapshot.data;
 
   return Container(
-    height: MediaQuery.of(cardContext).size.height * 3 / 5,
-    width: MediaQuery.of(cardContext).size.width * 2 / 8,
+    height: MediaQuery
+        .of(cardContext)
+        .size
+        .height * 3 / 5,
+    width: MediaQuery
+        .of(cardContext)
+        .size
+        .width * 2 / 8,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20.0),
       image: const DecorationImage(
           image:
-              AssetImage("assets/Mt. Kenya Mackinders Camp (650 of 745).jpg"),
+          AssetImage("assets/Mt. Kenya Mackinders Camp (650 of 745).jpg"),
           fit: BoxFit.cover),
     ),
     child: Stack(
