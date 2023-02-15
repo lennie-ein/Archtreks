@@ -40,25 +40,23 @@ class _DestinationPageState extends State<DestinationPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black45,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(children: [
-              Image.asset("assets/Mt. Kenya Mackinders Camp (695 of 745).jpg"),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 1 / 2),
-                child: Text(
-                  "Destinations",
-                  style: GoogleFonts.londrinaOutline(
-                      fontSize: 40, textStyle: TextStyle(color: Colors.white)),
-                ),
+      body: Column(
+        children: [
+          Stack(children: [
+            Image.asset("assets/Mt. Kenya Mackinders Camp (695 of 745).jpg"),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 1 / 2),
+              child: Text(
+                "Destinations",
+                style: GoogleFonts.londrinaOutline(
+                    fontSize: 40,
+                    textStyle: const TextStyle(color: Colors.white)),
               ),
-            ]),
-            FutureBuilder<List<ProgramModel>>(
+            ),
+          ]),
+          Expanded(
+            child: FutureBuilder<List<ProgramModel>>(
                 future: programs,
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -71,9 +69,9 @@ class _DestinationPageState extends State<DestinationPage>
                     // ));
                   } else {
                     return ListView.builder(
-                      itemBuilder: (BuildContext context, int index) {
-                        return destinationCard(snapshot.data![index], context);
-                      });
+                        itemBuilder: (BuildContext context, int index) {
+                      return destinationCard(snapshot.data![index], context);
+                    });
                     // return Center(
                     //     child: CircularProgressIndicator(
                     //   valueColor: animationController.drive(ColorTween(
@@ -81,16 +79,12 @@ class _DestinationPageState extends State<DestinationPage>
                     // ));
                   }
                 }),
-
-
-            const SizedBox(
-              height: 10,
-            )
-          ],
-        )
-        ,
-      )
-      ,
+          ),
+          const SizedBox(
+            height: 10,
+          )
+        ],
+      ),
     );
   }
 
